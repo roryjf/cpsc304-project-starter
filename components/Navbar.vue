@@ -3,10 +3,10 @@
     <div class="inner">
       <nav class="navbar__menu">
         <router-link to="/" exact>
-          <img class="logo" src="~/assets/img/happy.png" alt="logo">
+          <img class="logo" src="~/assets/img/sunglasses.png" alt="logo">
         </router-link>
         <nuxt-link to="/users">Users</nuxt-link>
-        <a class="github" href="https://github.com/belinghy/cpsc304" target="_blank" rel="noopener">
+        <a class="github" href="https://github.com/roryjf/cpsc304-sports-application" target="_blank" rel="noopener">
           Github
         </a>
       </nav>
@@ -20,7 +20,7 @@ export default {}
 
 <style lang="stylus" scoped>
 .header
-  background-color #111111
+  background-color #363a40
   position fixed
   z-index 999
   height 55px
