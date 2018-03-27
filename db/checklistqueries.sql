@@ -14,7 +14,12 @@ SELECT + attribute
 
 -- TODO Division query
 
+<<<<<<< HEAD
 test-edit
+=======
+test edit 2
+
+>>>>>>> sql-queries-edit
 
 -- TODO Aggregation query
 
