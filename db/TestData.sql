@@ -9,6 +9,7 @@ VALUES ('harum', 'Serbia', 3);
 INSERT INTO leagues (leagueName, country, numTeams)
 VALUES ('dicta', 'Yemen', 6);
 
+
 INSERT INTO managers (staffId, teamId)
 VALUES ('05129', '42032');
 INSERT INTO managers (staffId, teamId)
