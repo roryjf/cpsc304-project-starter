@@ -15,8 +15,8 @@ CREATE TABLE leagues (
 );
 
 CREATE TABLE teamsInLeague (
+    tName char(20) NOT NULL,
  	teamId char(5) NOT NULL,
-    tName char(20),
 	wins int,
 	losses int,
 	draws int,
@@ -27,7 +27,7 @@ CREATE TABLE teamsInLeague (
     standing int,
     leagueName char(20) NOT NULL,
  	country char(20) NOT NULL,
-    PRIMARY KEY (teamId),
+    PRIMARY KEY (tName),
     FOREIGN KEY (leagueName, country)
         REFERENCES leagues
 );
