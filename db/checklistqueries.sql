@@ -1,4 +1,4 @@
--- TODO Selection and Projection Query 
+-- TODO Selection and Projection Query
 
 SELECT teamID
 FROM teamsInLeague
@@ -13,6 +13,13 @@ SELECT + attribute
 + WHERE teamsInLeague.tName = + "'" + tName + "'",
 
 -- TODO Division query
+
+<<<<<<< HEAD
+test-edit
+=======
+test edit 2
+
+>>>>>>> sql-queries-edit
 
 -- TODO Aggregation query
 
