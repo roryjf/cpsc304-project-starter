@@ -44,7 +44,43 @@ router.post('/queries/delete_team', bodyParser.json(), function (req, res, next)
 /**
  * update operation
  */
+router.post('/queries/update_team', bodyParser.json(), function (req, res, next) {
+  const team = req.body.data.teamId
+  const wins = req.body.params.wins
 
+  const query =
+        'UPDATE teamsInLeague SET wins = :wins WHERE teamId = :team;'
+  connection.query(query,
+    {
+      type: connection.QueryTypes.UPDATE,
+      replacements: {
+        team: team,
+        wins: wins
+      }
+    })
+    .then(result => {
+      res.send('/queries')
+    })
+})
 
+/**
+ * selection and projection
+ */
+
+router.get('/queries/selection_projection', bodyParser.json(), function (req, res, next) {
+  const team = req.body.params.tName
+
+  const query = 'SELECT teamId FROM teamsInLeague t WHERE t.tName = :team'
+  connection.query(query,
+    {
+      type: connection.QueryTypes.SELECT,
+      replacements: {
+        team: team
+      }
+    })
+    .then(result => {
+      res.send('/queries')
+    })
+})
 
 export default router
