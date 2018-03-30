@@ -20,7 +20,7 @@ router.get('/team/get_teams', function (req, res, next) {
  */
 
  router.get('/team/least_goal', function (req, res, next) {
-    const query = 'SELECT *, (SELECT COUNT(*) FROM goals WHERE team_id = :team_id) as count FROM goals ORDER BY count;'
+    const query = 'SELECT *, (SELECT COUNT(*) FROM goals WHERE team_id = t.team_id) as count FROM team_id t ORDER BY count;'
     connection.query(query, { type: connection.QueryTypes.SELECT })
         .then(teams => {
             res.json(teams)

@@ -14,11 +14,11 @@ router.get('/players', function (req, res, next) {
 })
 
 /**
- * get team sorted by least goals
+ * get playter sorted by least goals
  */
 
  router.get('/players/most_goal', function (req, res, next) {
-    const query = 'SELECT *, (SELECT COUNT(*) FROM goals WHERE jersey_no = :jersey_no) as count FROM goals ORDER BY count;'
+    const query = 'SELECT *, (SELECT COUNT(*) FROM goals WHERE jersey_no = j.jersey_no) as count FROM jersey_no j ORDER BY count;'
     connection.query(query, { type: connection.QueryTypes.SELECT })
         .then(players => {
             res.json(players)
@@ -30,7 +30,7 @@ router.get('/players', function (req, res, next) {
  * player goals
  */
   router.get('/players/goals/', function (req, res, next) {
-    const team_id = req.body.data.team_id
+    const jersey_no = req.body.data.jersey_no
     const queryGoals = connection.query('SELECT * FROM goals WHERE j.jersey_no = :jersey_no',{ type: connection.QueryTypes.SELECT,
         replacements:{
             jersey_no: jersey_no
@@ -42,9 +42,8 @@ router.get('/players', function (req, res, next) {
     })
 })
 
-name, Jersey#, position, ratings, fouls, onGoal%, goals, assists, teamID
 /**
- * add team 
+ * add player 
  */
 router.post('/players/add_player', bodyParser.json(), function (req, res, next) {
   const name = req.body.data.name;
@@ -57,103 +56,69 @@ router.post('/players/add_player', bodyParser.json(), function (req, res, next) 
   const team_id = req.body.data.team_id;
 
   const query =
-        'INSERT INTO teams_in_league(name, jersey_no, postition, ratings, fouls, goals, assists, team_id)' +
+        'INSERT INTO players_in_team(name, jersey_no, postition, ratings, fouls, goals, assists, team_id)' +
         'VALUES (:name, :jersey_no, :postition, :ratings, :fouls, :goals, :assists, :team_id);';
   connection.query(query,
     {
       type: connection.QueryTypes.INSERT,
       replacements: {
-        team_id: team_id,
         name: name,
-        wins: wins,
-        l_name: l_name,
-        l_country: l_country,
-        draws: draws,
-        losses: losses,
+        jersey_no: jersey_no,
+        postition: postition,
         ratings: ratings,
-        total_red_cards: total_red_cards,
-        total_yellow_cards: total_yellow_cards,
-        goals: goals
+        fouls: fouls,
+        goals: goals,
+        assists: assists,
+        team_id: team_id,
       }
     })
     .then(result => {
       console.log(result);
-      res.send('/team')
+      res.send('/players')
     })
     .catch((e) => {
       console.log(e);
-      res.send('Unable to add your team');
+      res.send('Unable to add your player');
     })
 })
 
-/* GET users listing. */
-router.get('/users', function (req, res, next) {
-  const query = 'SELECT * FROM Users;'
-  connection.query(query, { type: connection.QueryTypes.SELECT })
-    .then(users => {
-      console.log(users)
-      res.json(users)
-    })
-})
+/**
+ * update operation
+ */
+router.post('/player/update_player', bodyParser.json(), function (req, res, next) {
+  const jersey_no = req.body.data.jersey_no
+  const goals = req.body.params.goals
 
-/* GET user by ID. */
-router.get('/users/:username', function (req, res, next) {
-  const username = req.params.username
-  const query = 'SELECT * FROM Users WHERE username = :username ;'
-  connection.query(query, 
-    { 
-      type: connection.QueryTypes.SELECT,
-      replacements: {
-        username: username
-      }
-    })
-    .then(user => {
-      if (user.length === 1 ) {
-        res.json(user[0])
-      } else {
-        res.status(404).json({})
-      }
-    })
-})
-
-router.post('/users/update', bodyParser.json(), function (req, res, next) {
-  const userid = req.body.data.userid
-  const username = req.body.data.username
-  const password = req.body.data.password
-
-  const query = 'UPDATE Users SET username = :username, password = :password WHERE userid = :userid ;'
+  const query =
+        'UPDATE players_in_team SET goals = :goals WHERE jersey_no = :jersey_no;'
   connection.query(query,
     {
       type: connection.QueryTypes.UPDATE,
       replacements: {
-        username: username,
-        password: password,
-        userid: userid
+        jersey_no: jersey_no,
+        goals: goals
       }
     })
     .then(result => {
-      // result[1] is the number of rows changed
-      res.send('/users')
+      res.send('/players')
     })
 })
 
-router.post('/users/add', bodyParser.json(), function (req, res, next) {
-  const userid = req.body.data.userid
-  const username = req.body.data.username
-  const password = req.body.data.password
-
-  const query = 'INSERT INTO Users (username, password) VALUES (:username, :password) ;'
+/**
+ * delete player query
+ */
+router.post('/player/delete_player', bodyParser.json(), function (req, res, next) {
+  const jersey_no = req.params.jersey_no
+  const query = 'DELETE FROM players_in_team j WHERE j.jersey_no = :jersey_no;'
   connection.query(query,
     {
-      type: connection.QueryTypes.INSERT,
+      type: connection.QueryTypes.DELETE,
       replacements: {
-        username: username,
-        password: password
+        jersey_no: jersey_no
       }
     })
     .then(result => {
-      // result[1] is the number of rows changed
-      res.send('/users')
+      res.send('/player')
     })
 })
 
