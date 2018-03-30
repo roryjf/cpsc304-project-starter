@@ -255,4 +255,3 @@ INSERT INTO updatedBy (staffId, uname, jerseyNum)
 VALUES ('97', 'salma89', 49797317);
 INSERT INTO updatedBy (staffId, uname, jerseyNum)
 VALUES ('99756', 'ulises85', 0);
-
