@@ -8,15 +8,15 @@ DROP TABLE IF EXISTS coaches;
 DROP TABLE IF EXISTS staffInTeam;
 
 CREATE TABLE leagues (
- 	leagueName char(20),
+ 	league_name char(20),
  	country char(20),
     numTeams int,
-    PRIMARY KEY (leaguename, country)
+    PRIMARY KEY (league_name, country)
 );
 
 CREATE TABLE teamsInLeague (
- 	tName char(20),
-	teamId char(5),
+    t_name char(20) NOT NULL,
+ 	team_id char(5) NOT NULL,
 	wins int,
 	losses int,
 	draws int,
@@ -25,10 +25,10 @@ CREATE TABLE teamsInLeague (
     totalYellowCards int,
     totalRedCards int,
     standing int,
-    lName char(20) NOT NULL,
+    league_name char(20) NOT NULL,
  	country char(20) NOT NULL,
-    PRIMARY KEY (tName),
-    FOREIGN KEY (lName, country)
+    PRIMARY KEY (t_name),
+    FOREIGN KEY (league_name, country)
         REFERENCES leagues
 );
 
@@ -41,58 +41,59 @@ CREATE TABLE playersInTeam (
     onGoalPercentage int,
     goals int,
     assists int,
-    teamId char(5) NOT NULL,
+    t_name char(20) NOT NULL,
     PRIMARY KEY (pname, jerseyNum),
-    FOREIGN KEY (teamId)
+    FOREIGN KEY (t_name)
         REFERENCES teamsInLeague
 );
 
 CREATE TABLE staffInTeam (
-    staffId char(5),
+    staff_id char(5),
     sName char(20),
-    teamId char(5) NOT NULL,
-    PRIMARY KEY (staffId),
-    FOREIGN KEY (teamId)
+    t_name char(20) NOT NULL,
+    PRIMARY KEY (staff_id),
+    FOREIGN KEY (t_name)
         REFERENCES teamsInLeague
 	        ON DELETE NO ACTION
 	        ON UPDATE CASCADE
 );
 
 CREATE TABLE coaches (
-    staffId char(5),
+    staff_id char(5),
     title char(20),
-    PRIMARY KEY (staffId),
-    FOREIGN KEY (staffId)
+    PRIMARY KEY (staff_id),
+    FOREIGN KEY (staff_id)
         REFERENCES staffInTeam
 );
 
 CREATE TABLE managers (
-    staffId char(5),
-    teamId char(5),
-    PRIMARY KEY (staffId),
-    FOREIGN KEY (staffId)
+    staff_id char(5),
+    t_name char(20),
+    PRIMARY KEY (staff_id),
+    FOREIGN KEY (staff_id)
         REFERENCES staffInTeam
 );
 
 CREATE TABLE matchesPlayedByTeams(
- 	matchId int,
+ 	t_name char(20) NOT NULL,
+    match_id int NOT NULL,
  	location char(20),
-	teamId char(5),
     result char(4) NOT NULL,
  	time int,
 	date date,
  	goals int,
 	numyellowCards int,
 	numredCards int,
-	PRIMARY KEY (teamId, matchId),
-    FOREIGN KEY (teamId)
+	PRIMARY KEY (t_name, match_id),
+    FOREIGN KEY (t_name)
         REFERENCES teamsInLeague
 	        ON DELETE CASCADE
 );
 
 CREATE TABLE updatedBy (
- 	staffId char(5),
+ 	staff_id char(5),
  	uname char (20) NOT NULL,
+<<<<<<< HEAD
  	jerseyNum int NOT NULL,
     PRIMARY KEY (staffId, uname, jerseyNum),
     FOREIGN KEY (staffId)
@@ -100,3 +101,9 @@ CREATE TABLE updatedBy (
     FOREIGN KEY (uname, jerseyNum)
         REFERENCES playersInTeam
 );
+=======
+    PRIMARY KEY (staff_id),
+    FOREIGN KEY (staff_id)
+        REFERENCES managers
+);
+>>>>>>> origin/master

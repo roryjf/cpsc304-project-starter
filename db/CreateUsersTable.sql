@@ -7,5 +7,6 @@ CREATE TABLE Users(
     PRIMARY KEY (username)
 );
 
-INSERT INTO Users (USERNAME, PASSWORD) VALUES ('test@fake.com', 'test');
-INSERT INTO Users (USERNAME, PASSWORD, isAdmin) VALUES ('test2@fake2.com', 'yo', true);
+INSERT INTO Users (USERNAME, PASSWORD) VALUES ('user@rubadbdb.com', 'user');
+INSERT INTO Users (USERNAME, PASSWORD, isAdmin) VALUES ('admin@rubadbdb.com', 'admin', true);
+
