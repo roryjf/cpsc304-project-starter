@@ -66,6 +66,7 @@ INSERT INTO staffInTeam (staff_id, sName, t_name)
 VALUES ('19750', 'Ben Yang', 'Juventus');
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 INSERT INTO updatedBy (staffId, uname, jerseyNum)
 VALUES ('4', 'akertzmann', 387);
 INSERT INTO updatedBy (staffId, uname, jerseyNum)
@@ -89,6 +90,8 @@ VALUES ('97', 'salma89', 49797317);
 INSERT INTO updatedBy (staffId, uname, jerseyNum)
 VALUES ('99756', 'ulises85', 0);
 =======
+=======
+>>>>>>> origin/master
 INSERT INTO coaches (staff_id, title)
 VALUES ('19829', 'SD');
 INSERT INTO coaches (staff_id, title)
@@ -133,5 +136,9 @@ VALUES ('09369', 'evelyn.windler');
 INSERT INTO updatedBy (staff_id, uname)
 VALUES ('01674', 'ksipes');
 INSERT INTO updatedBy (staff_id, uname)
+<<<<<<< HEAD
+VALUES ('09950', 'bkunde');
+>>>>>>> origin/master
+=======
 VALUES ('09950', 'bkunde');
 >>>>>>> origin/master

@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import {Router} from 'express'
 
 var connection = require('../configs/sequelize')
@@ -89,6 +90,8 @@ router.get('/queries/selection_projection', bodyParser.json(), function (req, re
 
 export default router
 =======
+=======
+>>>>>>> origin/master
 import {Router} from 'express'
 
 var connection = require('../configs/sequelize')
@@ -183,4 +186,7 @@ router.get('/queries/selection_projection', bodyParser.json(), function (req, re
 })
 
 export default router
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master

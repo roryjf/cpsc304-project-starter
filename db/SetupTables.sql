@@ -94,6 +94,7 @@ CREATE TABLE updatedBy (
  	staff_id char(5),
  	uname char (20) NOT NULL,
 <<<<<<< HEAD
+<<<<<<< HEAD
  	jerseyNum int NOT NULL,
     PRIMARY KEY (staffId, uname, jerseyNum),
     FOREIGN KEY (staffId)
@@ -101,6 +102,12 @@ CREATE TABLE updatedBy (
     FOREIGN KEY (uname, jerseyNum)
         REFERENCES playersInTeam
 );
+=======
+    PRIMARY KEY (staff_id),
+    FOREIGN KEY (staff_id)
+        REFERENCES managers
+);
+>>>>>>> origin/master
 =======
     PRIMARY KEY (staff_id),
     FOREIGN KEY (staff_id)
