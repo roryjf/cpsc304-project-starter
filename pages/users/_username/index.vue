@@ -32,27 +32,6 @@
           <span class='player-info'>Jersey#: </span>
           <input type='text' v-model='jerseyNum'></input>
         </div>
-        <div id='attributes'>
-          Choose to display:
-          <input type="checkbox" id="numTeams" value="numTeams" v-model="colsSelected">
-          <label for="numTeams">#ofTeams</label>
-          <input type="checkbox" id="wins" value="wins" v-model="colsSelected">
-          <label for="wins">#Wins</label>
-          <input type="checkbox" id="losses" value="losses" v-model="colsSelected">
-          <label for="losses">#Losses</label>
-          <input type="checkbox" id="goals" value="goals" v-model="colsSelected">
-          <label for="goals">#Goals</label>
-          <input type="checkbox" id="standing" value="standing" v-model="colsSelected">
-          <label for="standing">Standing</label>
-          <input type="checkbox" id="position" value="position" v-model="colsSelected">
-          <label for="position">Position</label>
-          <input type="checkbox" id="ratings" value="ratings" v-model="colsSelected">
-          <label for="ratings">Rating</label>
-          <input type="checkbox" id="onGoalPercentage" value="onGoalPercentage" v-model="colsSelected">
-          <label for="onGoalPercentage">onGoalPercentage</label>
-
-          <br>
-        </div>
         <div>
           <br>
           <button type='button' class='button--grey' style='margin-left: 15px;' @click='search()'>Search</button>
@@ -110,10 +89,10 @@ export default {
 
   data () {
     return {
-      leagueName: '',
+      league_name: '',
       country: '',
-      tName: '',
-      pName: '',
+      t_name: '',
+      pname: '',
       jerseyNum: '',
       colsSelected: [],
       rows: [],
@@ -129,11 +108,11 @@ export default {
       let self = this
 
       self.queryParams = {
-        landsAt_airport: self.destination.toUpperCase(),
-        date: self.date,
-        flight_no: self.flight_no,
-        airline: self.airline,
-        takesOff_airport: self.departure.toUpperCase()
+        league_name: self.league_name,
+        country: self.country,
+        t_name: self.t_name,
+        pname: self.pname,
+        jerseyNum: self.jerseyNum
       }
 
       for (const param of Object.keys(self.queryParams)) {
