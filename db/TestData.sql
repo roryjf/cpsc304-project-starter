@@ -1,91 +1,112 @@
-INSERT INTO leagues (leagueName, country, numTeams)
-VALUES ('aliquam', 'Pakistan', 8);
-INSERT INTO leagues (leagueName, country, numTeams)
-VALUES ('velit', 'Luxembourg', 9);
-INSERT INTO leagues (leagueName, country, numTeams)
-VALUES ('saepe', 'Samoa', 4);
-INSERT INTO leagues (leagueName, country, numTeams)
-VALUES ('harum', 'Serbia', 3);
-INSERT INTO leagues (leagueName, country, numTeams)
-VALUES ('dicta', 'Yemen', 6);
+INSERT INTO leagues (league_name, country, numTeams)
+VALUES ('EnglishPremierLeague', 'England', 20);
+INSERT INTO leagues (league_name, country, numTeams)
+VALUES ('Bundesliga', 'Germany', 18);
+INSERT INTO leagues (league_name, country, numTeams)
+VALUES ('LaLiga', 'Spain', 20);
+INSERT INTO leagues (league_name, country, numTeams)
+VALUES ('LigaMX', 'Mexico', 18);
+INSERT INTO leagues (league_name, country, numTeams)
+VALUES ('SerieA', 'Italy', 20);
 
 
-INSERT INTO teamsInLeague (tName, teamId, wins, losses, draws, ratings, goals, totalYellowCards, totalRedCards, standing, leagueName, country)
-VALUES ('at', '42032', 0, 0, 0, '0', 0, 0, 0, 0, 'aliquam', 'Pakistan');
-INSERT INTO teamsInLeague (tName, teamId, wins, losses, draws, ratings, goals, totalYellowCards, totalRedCards, standing, leagueName, country)
-VALUES ('atque', '85739', 0, 0, 0, '99', 0, 0, 0, 0, 'velit', 'Luxembourg');
-INSERT INTO teamsInLeague (tName, teamId, wins, losses, draws, ratings, goals, totalYellowCards, totalRedCards, standing, leagueName, country)
-VALUES ('debitis', '98969', 0, 0, 0, '99', 0, 0, 0, 0, 'saepe', 'Samoa');
-INSERT INTO teamsInLeague (tName, teamId, wins, losses, draws, ratings, goals, totalYellowCards, totalRedCards, standing, leagueName, country)
-VALUES ('dicta', '92240', 0, 0, 0, '99', 0, 0, 0, 0, 'harum', 'Serbia');
-INSERT INTO teamsInLeague (tName, teamId, wins, losses, draws, ratings, goals, totalYellowCards, totalRedCards, standing, leagueName, country)
-VALUES ('doloremque', '60242', 0, 0, 0, '99', 0, 0, 0, 0, 'dicta', 'Yemen');
+INSERT INTO teamsInLeague (t_name, team_id, wins, losses, draws, ratings, goals, totalYellowCards, totalRedCards, standing, league_name, country)
+VALUES ('ManchesterUnited', '42032', 30, 3, 6, '99', 98, 13, 3, 1, 'EnglishPremierLeague', 'England');
+INSERT INTO teamsInLeague (t_name, team_id, wins, losses, draws, ratings, goals, totalYellowCards, totalRedCards, standing, league_name, country)
+VALUES ('FCBayernMunich', '85739', 25, 7, 7, '98', 89, 14, 5, 2, 'Bundesliga', 'Germany');
+INSERT INTO teamsInLeague (t_name, team_id, wins, losses, draws, ratings, goals, totalYellowCards, totalRedCards, standing, league_name, country)
+VALUES ('FCBarcelona', '98969', 23, 6, 4, '97', 88, 13, 4, 3, 'LaLiga', 'Spain');
+INSERT INTO teamsInLeague (t_name, team_id, wins, losses, draws, ratings, goals, totalYellowCards, totalRedCards, standing, league_name, country)
+VALUES ('ClubAmerica', '92240', 22, 7, 8, '96', 85, 15, 5, 4, 'LigaMX', 'Mexico');
+INSERT INTO teamsInLeague (t_name, team_id, wins, losses, draws, ratings, goals, totalYellowCards, totalRedCards, standing, league_name, country)
+VALUES ('Juventus', '60242', 21, 8, 9, '95', 78, 17, 8, 5, 'SerieA', 'Italy');
 
 
-INSERT INTO playersInTeam (pname, jerseyNum, position, ratings, fouls, onGoalPercentage, goals, assists, teamId)
-VALUES ('Adele Bauch', 03, 'hic', '99', 0, 0, 0, 0, '42032');
-INSERT INTO playersInTeam (pname, jerseyNum, position, ratings, fouls, onGoalPercentage, goals, assists, teamId)
-VALUES ('Alysson Metz', 99, 'con', '99', 0, 0, 0, 0, '42032');
-INSERT INTO playersInTeam (pname, jerseyNum, position, ratings, fouls, onGoalPercentage, goals, assists, teamId)
-VALUES ('Angus Pacocha', 23, 'atq', '99', 0, 0, 0, 0, '85739');
-INSERT INTO playersInTeam (pname, jerseyNum, position, ratings, fouls, onGoalPercentage, goals, assists, teamId)
-VALUES ('Anthony Collier', 44, 'por', '99', 0, 0, 0, 0, '85739');
-INSERT INTO playersInTeam (pname, jerseyNum, position, ratings, fouls, onGoalPercentage, goals, assists, teamId)
-VALUES ('Antwon Gerhold', 35, 'ips', '0', 0, 0, 0, 0, '98969');
-INSERT INTO playersInTeam (pname, jerseyNum, position, ratings, fouls, onGoalPercentage, goals, assists, teamId)
-VALUES ('Bethel Kertzmann', 27, 'est', '99', 0, 0, 0, 0, '98969');
-INSERT INTO playersInTeam (pname, jerseyNum, position, ratings, fouls, onGoalPercentage, goals, assists, teamId)
-VALUES ('Christian Effertz', 54, 'ven', '0', 0, 0, 0, 0, '92240');
-INSERT INTO playersInTeam (pname, jerseyNum, position, ratings, fouls, onGoalPercentage, goals, assists, teamId)
-VALUES ('Darien Heidenreich', 11, 'qua', '99', 0, 0, 0, 0, '92240');
-INSERT INTO playersInTeam (pname, jerseyNum, position, ratings, fouls, onGoalPercentage, goals, assists, teamId)
-VALUES ('Dayana Collier', 67, 'ten', '99', 0, 0, 0, 0, '60242');
-INSERT INTO playersInTeam (pname, jerseyNum, position, ratings, fouls, onGoalPercentage, goals, assists, teamId)
-VALUES ('Alexandro Adams', 88, 'in', '99', 0, 0, 0, 0, '60242');
+INSERT INTO playersInTeam (pname, jerseyNum, position, ratings, fouls, onGoalPercentage, goals, assists, t_name)
+VALUES ('Wayne Rooney', 03, 'FW', '99', 20, 44, 253, 62, 'ManchesterUnited');
+INSERT INTO playersInTeam (pname, jerseyNum, position, ratings, fouls, onGoalPercentage, goals, assists, t_name)
+VALUES ('Ryan Giggs', 99, 'MF', '90', 10, 29, 155, 30, 'ManchesterUnited');
+INSERT INTO playersInTeam (pname, jerseyNum, position, ratings, fouls, onGoalPercentage, goals, assists, t_name)
+VALUES ('Gerd Muller', 23, 'FW', '99', 5, 50, 365, 100, 'FCBayernMunich');
+INSERT INTO playersInTeam (pname, jerseyNum, position, ratings, fouls, onGoalPercentage, goals, assists, t_name)
+VALUES ('Thomas Muller', 44, 'FW', '89', 20, 30, 151, 30, 'FCBayernMunich');
+INSERT INTO playersInTeam (pname, jerseyNum, position, ratings, fouls, onGoalPercentage, goals, assists, t_name)
+VALUES ('Lionel Messi', 35, 'FW', '99', 13, 43, 368, 100, 'FCBarcelona');
+INSERT INTO playersInTeam (pname, jerseyNum, position, ratings, fouls, onGoalPercentage, goals, assists, t_name)
+VALUES ('Ronald Koeman', 27, 'DF', '81', 0, 0, 67, 0, 'FCBarcelona');
+INSERT INTO playersInTeam (pname, jerseyNum, position, ratings, fouls, onGoalPercentage, goals, assists, t_name)
+VALUES ('Christian Effertz', 54, 'FW', '88', 13, 20, 70, 44, 'ClubAmerica');
+INSERT INTO playersInTeam (pname, jerseyNum, position, ratings, fouls, onGoalPercentage, goals, assists, t_name)
+VALUES ('Darien Heidenreich', 11, 'DF', '75', 0, 0, 30, 0, 'ClubAmerica');
+INSERT INTO playersInTeam (pname, jerseyNum, position, ratings, fouls, onGoalPercentage, goals, assists, t_name)
+VALUES ('Dayana Collier', 67, 'MF', '78', 15, 22, 20, 5, 'Juventus');
+INSERT INTO playersInTeam (pname, jerseyNum, position, ratings, fouls, onGoalPercentage, goals, assists, t_name)
+VALUES ('Alexandro Adams', 88, 'MF', '82', 20, 30, 56, 10, 'Juventus');
 
 
-INSERT INTO staffInTeam (staffId, sName, teamId)
-VALUES ('05129', 'Adolf Lang', '42032');
-INSERT INTO staffInTeam (staffId, sName, teamId)
-VALUES ('06516', 'Merl Rolfson II', '85739');
-INSERT INTO staffInTeam (staffId, sName, teamId)
-VALUES ('09369', 'Michael Larson', '98969');
-INSERT INTO staffInTeam (staffId, sName, teamId)
-VALUES ('01674', 'Daphnee OHara', '92240');
-INSERT INTO staffInTeam (staffId, sName, teamId)
-VALUES ('09950', 'Abel Balistreri', '60242');
+INSERT INTO staffInTeam (staff_id, sName, t_name)
+VALUES ('05129', 'Adolf Lang', 'ManchesterUnited');
+INSERT INTO staffInTeam (staff_id, sName, t_name)
+VALUES ('19829', 'Sam Fisher', 'ManchesterUnited');
+INSERT INTO staffInTeam (staff_id, sName, t_name)
+VALUES ('06516', 'Merl Rolfson II', 'FCBayernMunich');
+INSERT INTO staffInTeam (staff_id, sName, t_name)
+VALUES ('16316', 'Merl Rolfson I', 'FCBayernMunich');
+INSERT INTO staffInTeam (staff_id, sName, t_name)
+VALUES ('09369', 'Michael Larson', 'FCBarcelona');
+INSERT INTO staffInTeam (staff_id, sName, t_name)
+VALUES ('13369', 'Michael Jackson', 'FCBarcelona');
+INSERT INTO staffInTeam (staff_id, sName, t_name)
+VALUES ('01674', 'Daphnee OHara', 'ClubAmerica');
+INSERT INTO staffInTeam (staff_id, sName, t_name)
+VALUES ('11374', 'Leo Opera', 'ClubAmerica');
+INSERT INTO staffInTeam (staff_id, sName, t_name)
+VALUES ('09950', 'Abel Balistreri', 'Juventus');
+INSERT INTO staffInTeam (staff_id, sName, t_name)
+VALUES ('19750', 'Ben Yang', 'Juventus');
+
+INSERT INTO coaches (staff_id, title)
+VALUES ('19829', 'SD');
+INSERT INTO coaches (staff_id, title)
+VALUES ('16316', 'AC');
+INSERT INTO coaches (staff_id, title)
+VALUES ('13369', 'AC');
+INSERT INTO coaches (staff_id, title)
+VALUES ('11374', 'SD');
+INSERT INTO coaches (staff_id, title)
+VALUES ('19750', 'AC');
 
 
-INSERT INTO managers (staffId, teamId)
-VALUES ('05129', '42032');
-INSERT INTO managers (staffId, teamId)
-VALUES ('06516', '85739');
-INSERT INTO managers (staffId, teamId)
-VALUES ('09369', '98969');
-INSERT INTO managers (staffId, teamId)
-VALUES ('01674', '92240');
-INSERT INTO managers (staffId, teamId)
-VALUES ('09950', '60242');
+INSERT INTO managers (staff_id, t_name)
+VALUES ('05129', 'ManchesterUnited');
+INSERT INTO managers (staff_id, t_name)
+VALUES ('06516', 'FCBayernMunich');
+INSERT INTO managers (staff_id, t_name)
+VALUES ('09369', 'FCBarcelona');
+INSERT INTO managers (staff_id, t_name)
+VALUES ('01674', 'ClubAmerica');
+INSERT INTO managers (staff_id, t_name)
+VALUES ('09950', 'Juventus');
 
-INSERT INTO matchesPlayedByTeams (matchId, location, teamId, result, time, date, goals, numyellowCards, numredCards)
-VALUES (15999900, 'sit', '42032', 'nihi', 741582959, '2008-03-22', 69663576, 7, 0);
-INSERT INTO matchesPlayedByTeams (matchId, location, teamId, result, time, date, goals, numyellowCards, numredCards)
-VALUES (53514022, 'nisi', '85739', 'volu', 1172626456, '2005-02-17', 6101854, 4, 8);
-INSERT INTO matchesPlayedByTeams (matchId, location, teamId, result, time, date, goals, numyellowCards, numredCards)
-VALUES (23251040, 'necessitatibus', '98969', 'rati', 1057492892, '2016-05-04', 197799725, 6, 1);
-INSERT INTO matchesPlayedByTeams (matchId, location, teamId, result, time, date, goals, numyellowCards, numredCards)
-VALUES (41115420, 'asperiores', '92240', 'aspe', 844607629, '2012-08-17', 471, 5, 7);
-INSERT INTO matchesPlayedByTeams (matchId, location, teamId, result, time, date, goals, numyellowCards, numredCards)
-VALUES (35977447, 'voluptate', '60242', 'aute', 485625183, '2001-05-05', 1225, 5, 1);
+INSERT INTO matchesPlayedByTeams (t_name, match_id, location, result, time, date, goals, numyellowCards, numredCards)
+VALUES ('ManchesterUnited', 15999900, 'sit', 'nihi', 741582959, '2008-03-22', 69663576, 7, 0);
+INSERT INTO matchesPlayedByTeams (t_name, match_id, location, result, time, date, goals, numyellowCards, numredCards)
+VALUES ('FCBayernMunich', 53514022, 'nisi', 'volu', 1172626456, '2005-02-17', 6101854, 4, 8);
+INSERT INTO matchesPlayedByTeams (t_name, match_id, location, result, time, date, goals, numyellowCards, numredCards)
+VALUES ('FCBarcelona', 23251040, 'necessitatibus', 'rati', 1057492892, '2016-05-04', 197799725, 6, 1);
+INSERT INTO matchesPlayedByTeams (t_name, match_id, location, result, time, date, goals, numyellowCards, numredCards)
+VALUES ('ClubAmerica', 41115420, 'asperiores', 'aspe', 844607629, '2012-08-17', 471, 5, 7);
+INSERT INTO matchesPlayedByTeams (t_name, match_id, location, result, time, date, goals, numyellowCards, numredCards)
+VALUES ('Juventus', 35977447, 'voluptate', 'aute', 485625183, '2001-05-05', 1225, 5, 1);
 
 
-INSERT INTO updatedBy (staffId, uname)
+INSERT INTO updatedBy (staff_id, uname)
 VALUES ('05129', 'akertzmann');
-INSERT INTO updatedBy (staffId, uname)
+INSERT INTO updatedBy (staff_id, uname)
 VALUES ('06516', 'beatty.stanford');
-INSERT INTO updatedBy (staffId, uname)
+INSERT INTO updatedBy (staff_id, uname)
 VALUES ('09369', 'evelyn.windler');
-INSERT INTO updatedBy (staffId, uname)
+INSERT INTO updatedBy (staff_id, uname)
 VALUES ('01674', 'ksipes');
-INSERT INTO updatedBy (staffId, uname)
+INSERT INTO updatedBy (staff_id, uname)
 VALUES ('09950', 'bkunde');
