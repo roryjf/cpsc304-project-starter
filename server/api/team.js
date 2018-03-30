@@ -6,7 +6,7 @@ const bodyParser = require('body-parser')
 const router = Router()
 
 
-router.get('/team', function (req, res, next) {
+router.get('/team/get_teams', function (req, res, next) {
     const query = 'SELECT * FROM teams_in_league;'
     connection.query(query, { type: connection.QueryTypes.SELECT })
         .then(team => {
@@ -19,7 +19,7 @@ router.get('/team', function (req, res, next) {
  * get team sorted by least goals
  */
 
- router.get('/team/most_goal', function (req, res, next) {
+ router.get('/team/least_goal', function (req, res, next) {
     const query = 'SELECT *, (SELECT COUNT(*) FROM goals WHERE team_id = :team_id) as count FROM goals ORDER BY count;'
     connection.query(query, { type: connection.QueryTypes.SELECT })
         .then(teams => {
@@ -45,10 +45,10 @@ router.get('/team', function (req, res, next) {
 })
 
 /**
- * add operation
+ * add team 
  */
-router.post('/team/update_team', bodyParser.json(), function (req, res, next) {
-  const team = Math.floor((Math.random() * 99999) + 11111);
+router.post('/team/add_team', bodyParser.json(), function (req, res, next) {
+  const team_id = Math.floor((Math.random() * 99999) + 10000);
   const name = req.body.data.name;
   const l_name = req.body.data.l_name;
   const l_country = req.body.data.l_country;
@@ -67,7 +67,7 @@ router.post('/team/update_team', bodyParser.json(), function (req, res, next) {
     {
       type: connection.QueryTypes.INSERT,
       replacements: {
-        team: team_id,
+        team_id: team_id,
         name: name,
         wins: wins,
         l_name: l_name,
@@ -98,7 +98,7 @@ router.post('/team/update_team', bodyParser.json(), function (req, res, next) {
   const goals = req.body.params.goals
 
   const query =
-        'UPDATE teams_in_league SET goals = :goals WHERE teamId = :team;'
+        'UPDATE teams_in_league SET goals = :goals WHERE team_id = :team_id;'
   connection.query(query,
     {
       type: connection.QueryTypes.UPDATE,
@@ -117,12 +117,12 @@ router.post('/team/update_team', bodyParser.json(), function (req, res, next) {
  */
 router.post('/team/delete_team', bodyParser.json(), function (req, res, next) {
   const team = req.params.teamId
-  const query = 'DELETE FROM teams_in_league t WHERE t.teamId = :team;'
+  const query = 'DELETE FROM teams_in_league t WHERE t.team_id = :team_id;'
   connection.query(query,
     {
       type: connection.QueryTypes.DELETE,
       replacements: {
-        team: team
+        team_id: team_id
       }
     })
     .then(result => {
