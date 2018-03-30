@@ -30,12 +30,7 @@ WHERE NOT EXISTS (
   FROM players_in_team P
   WHERE P.goals <= 10);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-test-edit
-=======
-test edit 2
-=======
+
 -- Find the names of players who have less than 10 goals
   SELECT p_name
   FROM players_in_team P
@@ -43,9 +38,7 @@ test edit 2
     SELECT P.p_name
     FROM players_in_team P
     WHERE P.goals >= 10);
->>>>>>> sql-queries-edit
 
->>>>>>> sql-queries-edit
 
 -- TODO Aggregation query
 -- Find the names of the player(s) who have scored the most goals
