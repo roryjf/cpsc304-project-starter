@@ -26,7 +26,7 @@ router.get('/users/:username', function (req, res, next) {
       }
     })
     .then(user => {
-      if (user.length === 1 ) {
+      if (user.length === 1) {
         res.json(user[0])
       } else {
         res.status(404).json({})
