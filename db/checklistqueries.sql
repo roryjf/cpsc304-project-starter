@@ -1,4 +1,4 @@
--- TODO Selection and Projection Query
+-- Selection and Projection Query
 -- Find the team name and standing of teams with 10 red cards
 
 SELECT tname, standing
@@ -12,7 +12,7 @@ FROM teamsInLeague
 WHERE totalYellowCards = 5;
 
 
--- TODO Join Query
+-- Join Query
 -- Find the names and corresponding teams of all players
 
 SELECT pName, tName
@@ -20,7 +20,7 @@ FROM playersInTeam P, teamsInLeague T
 WHERE P.teamId = T.teamId;
 
 
--- TODO Division query
+-- Division query
 -- Find the names of players who have more than 10 goals
 
 SELECT name
@@ -39,7 +39,7 @@ WHERE NOT EXISTS (
     WHERE P.goals >= 10);
 
 
--- TODO Aggregation query
+-- Aggregation query
 -- Find the names of the player(s) who have scored the most goals
 
 SELECT name
@@ -52,7 +52,7 @@ FROM playersInTeam
 WHERE goals = (SELECT min(goals) from playersInTeam);
 
 
--- TODO Nested aggregation with group-by
+-- Nested aggregation with group-by
 -- Find the team with the highest avergae goals scored per player
 select max(AveragesByTeam.avgGoals)
 from (
@@ -71,7 +71,7 @@ ORDER BY COUNT(*) DESC;
 
 
 
--- TODO  Delete operation
+-- Delete operation
 -- Cascading: Delete a team in a league (teamsInLeague)
 -- If you delete a team in a league (teamsInLeague), it follows that all the playes on the team must also be deleted,
 -- since a player needs to play for a team
@@ -85,7 +85,7 @@ DELETE FROM playersInTeam
 WHERE Jersey# = 10;
 
 
--- TODO  Update operation:
+-- Update operation:
 -- Change the jersey number of the highest goal-scorer to number 10
 
 UPDATE playersInTeam

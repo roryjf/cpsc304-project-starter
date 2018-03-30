@@ -9,3 +9,4 @@ CREATE TABLE Users(
 
 INSERT INTO Users (USERNAME, PASSWORD) VALUES ('user@rubadbdb.com', 'user');
 INSERT INTO Users (USERNAME, PASSWORD, isAdmin) VALUES ('admin@rubadbdb.com', 'admin', true);
+
