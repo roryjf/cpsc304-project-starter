@@ -6,19 +6,59 @@ const bodyParser = require('body-parser')
 const router = Router()
 
 
+router.get('/team', function (req, res, next) {
+    const query = 'SELECT * FROM teams_in_league;'
+    connection.query(query, { type: connection.QueryTypes.SELECT })
+        .then(team => {
+            console.log(team)
+            res.json(team)
+        })
+})
+
+/**
+ * get team sorted by least goals
+ */
+
+ router.get('/team/most_goal', function (req, res, next) {
+    const query = 'SELECT *, (SELECT COUNT(*) FROM goals WHERE team_id = :team_id) as count FROM goals ORDER BY count;'
+    connection.query(query, { type: connection.QueryTypes.SELECT })
+        .then(teams => {
+            res.json(teams)
+        })
+})
+
+/**
+ * get goals
+ */
+
+ router.get('/team/goals/', function (req, res, next) {
+    const team_id = req.body.data.team_id
+    const queryGoals = connection.query('SELECT * FROM goals WHERE t.team_id = :team_id',{ type: connection.QueryTypes.SELECT,
+        replacements:{
+            team_id: team_id
+        }
+    })
+    .then(goals => {
+        console.log(goals)
+        res.json(goals)
+    })
+})
 
 /**
  * add operation
  */
-router.post('/queries/update_team', bodyParser.json(), function (req, res, next) {
+router.post('/team/update_team', bodyParser.json(), function (req, res, next) {
   const team = Math.floor((Math.random() * 99999) + 11111);
-  const name = req.body.
-  const l_name = 
-  const
-  const
-  const
-  const
-  const wins = req.body.params.wins
+  const name = req.body.data.name;
+  const l_name = req.body.data.l_name;
+  const l_country = req.body.data.l_country;
+  const draws = req.body.data.draws;
+  const wins = req.body.data.wins;
+  const losses = req.body.data.losses;
+  const ratings = req.body.params.ratings;
+  const total_yellow_cards = req.body.data.total_yellow_cards;
+  const total_red_cards = req.body.data.total_red_cards;
+  const goals = req.body.data.goals;
 
   const query =
         'INSERT INTO teams_in_league(team_id, name, l_name, l_country, draws, wins, losses, ratings, total_yellow_cards, total_red_cards, goals)' +
@@ -42,7 +82,7 @@ router.post('/queries/update_team', bodyParser.json(), function (req, res, next)
     })
     .then(result => {
       console.log(result);
-      res.send('Team Added!')
+      res.send('/team')
     })
     .catch((e) => {
       console.log(e);
@@ -53,31 +93,31 @@ router.post('/queries/update_team', bodyParser.json(), function (req, res, next)
 /**
  * update operation
  */
-router.post('/queries/update_team', bodyParser.json(), function (req, res, next) {
-  const team = req.body.data.teamId
-  const wins = req.body.params.wins
+router.post('/team/update_team', bodyParser.json(), function (req, res, next) {
+  const team_id = req.body.data.teamId
+  const goals = req.body.params.goals
 
   const query =
-        'UPDATE teamsInLeague SET wins = :wins WHERE teamId = :team;'
+        'UPDATE teams_in_league SET goals = :goals WHERE teamId = :team;'
   connection.query(query,
     {
       type: connection.QueryTypes.UPDATE,
       replacements: {
         team: team,
-        wins: wins
+        goals: goals
       }
     })
     .then(result => {
-      res.send('/queries')
+      res.send('/team')
     })
 })
 
 /**
  * delete team query
  */
-router.post('/queries/delete_team', bodyParser.json(), function (req, res, next) {
+router.post('/team/delete_team', bodyParser.json(), function (req, res, next) {
   const team = req.params.teamId
-  const query = 'DELETE FROM teamsInLeague t WHERE t.teamId = :team;'
+  const query = 'DELETE FROM teams_in_league t WHERE t.teamId = :team;'
   connection.query(query,
     {
       type: connection.QueryTypes.DELETE,
@@ -86,7 +126,7 @@ router.post('/queries/delete_team', bodyParser.json(), function (req, res, next)
       }
     })
     .then(result => {
-      res.send('/queries')
+      res.send('/team')
     })
 })
 
