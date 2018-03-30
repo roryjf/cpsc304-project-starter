@@ -10,7 +10,7 @@ const router = Router()
  */
 router.post('/queries/delete_coach', bodyParser.json(), function (req, res, next) {
   const coach = req.params.staffId
-  const query = 'DELETE FROM coaches c WHERE c.staffId = :coach;'
+  const query = 'DELETE FROM coaches c WHERE c.staff_id = :coach;'
   connection.query(query,
     {
       type: connection.QueryTypes.DELETE,
@@ -27,8 +27,8 @@ router.post('/queries/delete_coach', bodyParser.json(), function (req, res, next
  * delete team query
  */
 router.post('/queries/delete_team', bodyParser.json(), function (req, res, next) {
-  const team = req.params.teamId
-  const query = 'DELETE FROM teamsInLeague t WHERE t.teamId = :team;'
+  const team = req.params.team_id
+  const query = 'DELETE FROM teamsInLeague t WHERE t.team_id = :team;'
   connection.query(query,
     {
       type: connection.QueryTypes.DELETE,
@@ -45,7 +45,7 @@ router.post('/queries/delete_team', bodyParser.json(), function (req, res, next)
  * update operation
  */
 router.post('/queries/update_team', bodyParser.json(), function (req, res, next) {
-  const team = req.body.data.teamId
+  const team = req.body.data.team_id
   const wins = req.body.params.wins
 
   const query =
@@ -68,18 +68,26 @@ router.post('/queries/update_team', bodyParser.json(), function (req, res, next)
  */
 
 router.get('/queries/selection_projection', bodyParser.json(), function (req, res, next) {
-  const team = req.body.params.tName
-
-  const query = 'SELECT teamId FROM teamsInLeague t WHERE t.tName = :team'
+  console.log("Searching database...");
+  let select = req.body.data.colsSelected;
+  select = select.join(", ");
+  const queryParams = req.body.params.t_name;
+  const where = Object.keys(queryParams).map(function (x) {return x + ' = ' + queryParams[x]}).join(' AND ');
+  const query = 
+        'SELECT ' + select + ' ' +
+        'FROM teamsInLeague ' +
+        'WHERE ' + where + ';';     
+  console.log(query);
   connection.query(query,
     {
-      type: connection.QueryTypes.SELECT,
-      replacements: {
-        team: team
-      }
+      type: connection.QueryTypes.SELECT
     })
     .then(result => {
       res.send('/queries')
+      console.log(result)
+    })
+    .catch(e => {
+      res.status(400).send(e.message)
     })
 })
 

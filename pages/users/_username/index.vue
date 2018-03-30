@@ -123,7 +123,7 @@ export default {
         }
       }
 
-      axios.post('/api/search/flights', {
+      axios.post('/api/queries/selection_projection', {
         headers: {
           'Content-Type': 'application/json'
         },
@@ -141,13 +141,13 @@ export default {
         alert(e.response.data)
       })
 
-      axios.post('/api/search/flights', {
+      axios.post('/api/queries/selection_projection', {
         headers: {
           'Content-Type': 'application/json'
         },
         data: {
           queryParams: self.queryParams,
-          colsSelected: ['flight_no', 'airline', 'date']
+          colsSelected: ['t_name']
         }
       }).then((res) => {
         self.searched = res.data
