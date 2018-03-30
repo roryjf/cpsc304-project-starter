@@ -6,6 +6,63 @@
         <span class="user-password" style="padding: 10px 10px; margin: 10px 0 10px 0;">{{ `(${user.password})` }}</span>
         <nuxt-link :to="{ path: `/users/${user.username}/update`, params: { username: user.username }}">Update</nuxt-link>
       </div>
+      <section class='search-main'>
+    <div class='content'>
+      <div class='subsection'>
+        <div style='margin: 25px 5px;'>
+          <span class='subsection-title' style='vertical-align: middle;'>What are you searching for? Please fill in the ones that apply.</span>
+        </div>
+        <div style='margin: 10px 0;'>
+          <span class='league-info'>League: </span>
+          <input type='text' v-model='leagueName'></input>
+        </div>
+        <div style='margin: 10px 0;'>
+          <span class='league-info'>Country: </span>
+          <input type='text' v-model='country'></input>
+        </div>
+        <div>
+          <span class='team-info'>Team: </span>
+          <input type='text' v-model='tName'></input>
+        </div>
+        <div style='margin: 10px 0;'>
+          <span class='player-info'>Player: </span>
+          <input type='text' v-model='pName'></input>
+        </div>
+        <div style='margin: 10px 0;'>
+          <span class='player-info'>Jersey#: </span>
+          <input type='text' v-model='jerseyNum'></input>
+        </div>
+        <div>
+          <br>
+          <button type='button' class='button--grey' style='margin-left: 15px;' @click='search()'>Search</button>
+        </div>
+        <div>
+          <nuxt-link class='button--grey' style='margin-top:10px' :to="{ path: `/` }">Back to main</nuxt-link>
+        </div>
+        <div style='margin: 8px 0;'>
+          <table id='results'>
+            <thead>
+              <tr>
+                <th v-for='col in columns'>{{col}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for='(row, index) in rows'>
+                <td v-for='col in columns'>{{row[col]}}</td>
+                <td>
+                  <nuxt-link :to="{ path: `search/`,
+                    query: { leagueName: searched[index].leagueName.trim(), tName: searched[index].tName.trim(), pName: searched[index].pName.trim() }}">
+                    View stats
+                  </nuxt-link>
+                </td>
+                <br>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
     </div>
   </section>
 </template>
@@ -27,6 +84,76 @@ export default {
   head () {
     return {
       title: `User: ${this.user.username}`
+    }
+  },
+
+  data () {
+    return {
+      league_name: '',
+      country: '',
+      t_name: '',
+      pname: '',
+      jerseyNum: '',
+      colsSelected: [],
+      rows: [],
+      columns: [],
+      queryParams: {},
+      searched: []
+    }
+  },
+
+  // need to modify this to make it work
+  methods: {
+    search () {
+      let self = this
+
+      self.queryParams = {
+        league_name: self.league_name,
+        country: self.country,
+        t_name: self.t_name,
+        pname: self.pname,
+        jerseyNum: self.jerseyNum
+      }
+
+      for (const param of Object.keys(self.queryParams)) {
+        if (self.queryParams[param] === '') {
+          delete self.queryParams[param]
+        } else {
+          self.queryParams[param] = "'" + self.queryParams[param] + "'"
+        }
+      }
+
+      axios.post('/api/queries/selection_projection', {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        data: {
+          queryParams: self.queryParams,
+          colsSelected: self.colsSelected
+        }
+      }).then((res) => {
+        if (res.data.length === 0) {
+          alert('No results found!')
+        }
+        self.rows = res.data
+        self.columns = Object.keys(self.rows[0])
+      }).catch((e) => {
+        alert(e.response.data)
+      })
+
+      axios.post('/api/queries/selection_projection', {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        data: {
+          queryParams: self.queryParams,
+          colsSelected: ['t_name']
+        }
+      }).then((res) => {
+        self.searched = res.data
+      }).catch((e) => {
+        // error will be displayed from first POST request
+      })
     }
   }
 }

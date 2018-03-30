@@ -3,10 +3,10 @@
     <div>
     <Logo />
       <h1 class="title">
-        Demo Project
+        SoccerStats
       </h1>
       <div class="links">
-        <nuxt-link class="button--grey link" style="margin-left: 15px;" to="/users">View Users</nuxt-link>
+        <nuxt-link class="button--grey link" style="margin-left: 15px;" to="/users">Start</nuxt-link>
       </div>
     </div>
   </section>
@@ -38,7 +38,7 @@ export default {
   font-family "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif /* 1 */
   display block
   font-weight 300
-  font-size 100px
+  font-size 50px
   color #35495e
   letter-spacing 1px
 
