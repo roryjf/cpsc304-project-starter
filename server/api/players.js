@@ -14,7 +14,7 @@ router.get('/players/get_players', function (req, res, next) {
 })
 
 /**
- * get playter sorted by least goals
+ * get player sorted by least goals
  */
 
  router.get('/players/most_goal', function (req, res, next) {
@@ -46,7 +46,7 @@ router.get('/players/get_players', function (req, res, next) {
  * add player 
  */
 router.post('/players/add_player', bodyParser.json(), function (req, res, next) {
-  const name = req.body.data.name;
+  const p_name = req.body.data.p_name;
   const jersey_no = req.body.data.jersey_no;
   const postition = req.body.data.postition;
   const ratings = req.body.data.ratings;
@@ -56,13 +56,13 @@ router.post('/players/add_player', bodyParser.json(), function (req, res, next) 
   const team_id = req.body.data.team_id;
 
   const query =
-        'INSERT INTO players_in_team(name, jersey_no, postition, ratings, fouls, goals, assists, team_id)' +
-        'VALUES (:name, :jersey_no, :postition, :ratings, :fouls, :goals, :assists, :team_id);';
+        'INSERT INTO players_in_team(p_name, jersey_no, postition, ratings, fouls, goals, assists, team_id)' +
+        'VALUES (:p_name, :jersey_no, :postition, :ratings, :fouls, :goals, :assists, :team_id);';
   connection.query(query,
     {
       type: connection.QueryTypes.INSERT,
       replacements: {
-        name: name,
+        p_name: p_name,
         jersey_no: jersey_no,
         postition: postition,
         ratings: ratings,

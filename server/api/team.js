@@ -7,8 +7,8 @@ const router = Router()
 
 
 router.get('/team/get_teams', function (req, res, next) {
-    const query = 'SELECT * FROM teams_in_league;'
-    connection.query(query, { type: connection.QueryTypes.SELECT })
+  const query = 'SELECT * FROM teams_in_league;'
+  connection.query(query, { type: connection.QueryTypes.SELECT })
         .then(team => {
             console.log(team)
             res.json(team)
@@ -16,10 +16,18 @@ router.get('/team/get_teams', function (req, res, next) {
 })
 
 /**
+ * get the team name and standing of teams with 10 red cards
+ */
+ router.get('/team/ten_rcards', function (req, res, next) {
+  const query = 'SELECT t_name, standing FROM teams_in_league WHERE total_red_cards = 10;
+
+
+/**
  * get team sorted by least goals
  */
 
  router.get('/team/least_goal', function (req, res, next) {
+
     const query = 'SELECT *, (SELECT COUNT(*) FROM goals WHERE team_id = t.team_id) as count FROM team_id t ORDER BY count;'
     connection.query(query, { type: connection.QueryTypes.SELECT })
         .then(teams => {
@@ -49,8 +57,8 @@ router.get('/team/get_teams', function (req, res, next) {
  */
 router.post('/team/add_team', bodyParser.json(), function (req, res, next) {
   const team_id = Math.floor((Math.random() * 99999) + 10000);
-  const name = req.body.data.name;
-  const l_name = req.body.data.l_name;
+  const t_name = req.body.data.t_name;
+  const l_t_name = req.body.data.l_t_name;
   const l_country = req.body.data.l_country;
   const draws = req.body.data.draws;
   const wins = req.body.data.wins;
@@ -61,16 +69,16 @@ router.post('/team/add_team', bodyParser.json(), function (req, res, next) {
   const goals = req.body.data.goals;
 
   const query =
-        'INSERT INTO teams_in_league(team_id, name, l_name, l_country, draws, wins, losses, ratings, total_yellow_cards, total_red_cards, goals)' +
-        'VALUES (:team_id, :name, :l_name, :l_country, :draws, :wins, :losses, :ratings, :total_yellow_cards, :total_red_cards, :goals);';
+        'INSERT INTO teams_in_league(team_id, t_name, l_t_name, l_country, draws, wins, losses, ratings, total_yellow_cards, total_red_cards, goals)' +
+        'VALUES (:team_id, :t_name, :l_t_name, :l_country, :draws, :wins, :losses, :ratings, :total_yellow_cards, :total_red_cards, :goals);';
   connection.query(query,
     {
       type: connection.QueryTypes.INSERT,
       replacements: {
         team_id: team_id,
-        name: name,
+        t_name: t_name,
         wins: wins,
-        l_name: l_name,
+        l_t_name: l_t_name,
         l_country: l_country,
         draws: draws,
         losses: losses,

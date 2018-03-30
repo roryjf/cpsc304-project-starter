@@ -3,122 +3,115 @@ var connection = require('../configs/sequelize')
 const bodyParser = require('body-parser')
 
 const router = Router()
+ 
 
-router.get('/players', function (req, res, next) {
-    const query = 'SELECT * FROM players_in_team;'
+ matchID, teamID, location, time, date, goals, result, #redCards, #yellowCards
+
+router.get('/matches/get_matches', function (req, res, next) {
+    const query = 'SELECT * FROM matches_played_by_teams;'
     connection.query(query, { type: connection.QueryTypes.SELECT })
-        .then(players => {
-            console.log(players)
-            res.json(players)
-        })
-})
-
-/**
- * get playter sorted by least goals
- */
-
- router.get('/players/most_goal', function (req, res, next) {
-    const query = 'SELECT *, (SELECT COUNT(*) FROM goals WHERE jersey_no = j.jersey_no) as count FROM jersey_no j ORDER BY count;'
-    connection.query(query, { type: connection.QueryTypes.SELECT })
-        .then(players => {
-            res.json(players)
+        .then(matches => {
+            console.log(matches)
+            res.json(matches)
         })
 })
 
 
 /**
- * player goals
+ * match result 
  */
-  router.get('/players/goals/', function (req, res, next) {
-    const jersey_no = req.body.data.jersey_no
-    const queryGoals = connection.query('SELECT * FROM goals WHERE j.jersey_no = :jersey_no',{ type: connection.QueryTypes.SELECT,
+  router.get('/matches/get_result/', function (req, res, next) {
+    const match_id = req.body.data.match_id
+    const queryResult = connection.query('SELECT * FROM result WHERE m.match_id = :match_id',{ type: connection.QueryTypes.SELECT,
         replacements:{
-            jersey_no: jersey_no
+            match_id: match_id
         }
     })
-    .then(goals => {
-        console.log(goals)
-        res.json(goals)
+    .then(result => {
+        console.log(result)
+        res.json(result)
     })
 })
 
 /**
  * add player 
  */
-router.post('/players/add_player', bodyParser.json(), function (req, res, next) {
-  const name = req.body.data.name;
-  const jersey_no = req.body.data.jersey_no;
-  const postition = req.body.data.postition;
-  const ratings = req.body.data.ratings;
-  const fouls = req.body.data.fouls;
-  const goals = req.body.params.goals;
-  const assists = req.body.data.assists;
+router.post('/matches/add_match', bodyParser.json(), function (req, res, next) {
+  const match_id = Math.floor((Math.random() * 9999) + 1000);
   const team_id = req.body.data.team_id;
+  const location = req.body.data.location;
+  const time = req.body.data.time;
+  const date = req.body.data.date;
+  const goals = req.body.params.goals;
+  const result = req.body.data.result;
+  const no_red_cards = req.body.data.no_red_cards;
+  const no_yellow_cards = req.body.data.no_yellow_cards;
 
   const query =
-        'INSERT INTO players_in_team(name, jersey_no, postition, ratings, fouls, goals, assists, team_id)' +
-        'VALUES (:name, :jersey_no, :postition, :ratings, :fouls, :goals, :assists, :team_id);';
+        'INSERT INTO players_in_team(match_id, team_id, location, time, date, goals, result, no_red_cards, no_yellow_cards)' +
+        'VALUES (:match_id, :team_id, :location, :time, :date, :goals, :result, :no_red_cards, :no_yellow_cards);';
   connection.query(query,
     {
       type: connection.QueryTypes.INSERT,
       replacements: {
-        name: name,
-        jersey_no: jersey_no,
-        postition: postition,
-        ratings: ratings,
-        fouls: fouls,
-        goals: goals,
-        assists: assists,
+        match_id: match_id,
         team_id: team_id,
+       location: location,
+       time: time,
+       date: date,
+       goals: goals,
+       result: result,
+       no_red_cards: no_red_cards,
+       no_yellow_cards: no_yellow_cards
       }
     })
     .then(result => {
       console.log(result);
-      res.send('/players')
+      res.send('/matches')
     })
     .catch((e) => {
       console.log(e);
-      res.send('Unable to add your player');
+      res.send('Unable to add your match');
     })
 })
 
 /**
  * update operation
  */
-router.post('/player/update_player', bodyParser.json(), function (req, res, next) {
-  const jersey_no = req.body.data.jersey_no
-  const goals = req.body.params.goals
+router.post('/matches/update_match', bodyParser.json(), function (req, res, next) {
+  const match_id = req.body.data.match_id
+  const result = req.body.params.result
 
   const query =
-        'UPDATE players_in_team SET goals = :goals WHERE jersey_no = :jersey_no;'
+        'UPDATE matches_played_by_teams SET result = :result WHERE match_id = :match_id;'
   connection.query(query,
     {
       type: connection.QueryTypes.UPDATE,
       replacements: {
-        jersey_no: jersey_no,
-        goals: goals
+        match_id: match_id,
+        result: result
       }
     })
     .then(result => {
-      res.send('/players')
+      res.send('/matches')
     })
 })
 
 /**
- * delete player query
+ * delete match query
  */
-router.post('/player/delete_player', bodyParser.json(), function (req, res, next) {
-  const jersey_no = req.params.jersey_no
-  const query = 'DELETE FROM players_in_team j WHERE j.jersey_no = :jersey_no;'
+router.post('/matches/delete_match', bodyParser.json(), function (req, res, next) {
+  const match_id = req.params.jersey_no
+  const query = 'DELETE FROM matches_played_by_teams m WHERE m.match_id = :match_id;'
   connection.query(query,
     {
       type: connection.QueryTypes.DELETE,
       replacements: {
-        jersey_no: jersey_no
+        match_id: match_id
       }
     })
     .then(result => {
-      res.send('/player')
+      res.send('/matches')
     })
 })
 
