@@ -4,7 +4,7 @@ const bodyParser = require('body-parser')
 
 const router = Router()
 
-router.get('/players/get_players', function (req, res, next) {
+router.get('/players', function (req, res, next) {
     const query = 'SELECT * FROM players_in_team;'
     connection.query(query, { type: connection.QueryTypes.SELECT })
         .then(players => {

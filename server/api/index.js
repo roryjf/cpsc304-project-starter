@@ -1,12 +1,17 @@
-import { Router } from 'express'
+impoimport { Router } from 'express'
 
+import matches from './matches'
+import team from './team'
+import players from './players'
 import users from './users'
-import queries from '/queries'
+import league from './league'
 
 const router = Router()
 
-// Add USERS Routes
+router.use(matches)
+router.use(team)
+router.use(players)
 router.use(users)
-router.use(queries)
+router.use(league)
 
 export default router
