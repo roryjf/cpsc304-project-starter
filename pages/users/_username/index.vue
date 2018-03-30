@@ -22,11 +22,11 @@
         </div>
         <div>
           <span class='team-info'>Team: </span>
-          <input type='text' v-model='tName'></input>
+          <input type='text' v-model='t_name'></input>
         </div>
         <div style='margin: 10px 0;'>
           <span class='player-info'>Player: </span>
-          <input type='text' v-model='pName'></input>
+          <input type='text' v-model='pname'></input>
         </div>
         <div style='margin: 10px 0;'>
           <span class='player-info'>Jersey#: </span>
